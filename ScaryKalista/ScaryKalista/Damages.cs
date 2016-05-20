@@ -10,7 +10,7 @@ namespace ScaryKalista
         private static readonly float[] RawRendDamage = { 20, 30, 40, 50, 60 };
         private static readonly float[] RawRendDamageMultiplier = { 0.6f, 0.6f, 0.6f, 0.6f, 0.6f };
         private static readonly float[] RawRendDamagePerSpear = { 10, 14, 19, 25, 32 };
-        private static readonly float[] RawRendDamagePerSpearMultiplier = { 0.2f, 0.225f, 0.25f, 0.275f, 0.3f };
+        private static readonly float[] RawRendDamagePerSpearMultiplier = { 0.5f, 0.5f, 0.5f, 0.5f, 0.5f };
 
         static Damages()
         {
@@ -45,10 +45,8 @@ namespace ScaryKalista
             if (stacks > -1)
             {
                 var index = Spells.E.Level - 1;
-                return RawRendDamage[index] + stacks * RawRendDamagePerSpear[index] +
-                       Player.Instance.TotalAttackDamage * (RawRendDamageMultiplier[index] + stacks * RawRendDamagePerSpearMultiplier[index]);
+                return (RawRendDamage[index] + Player.Instance.TotalAttackDamage * (RawRendDamageMultiplier[index]) * (1+stacks * RawRendDamagePerSpearMultiplier[index]));
             }
-
             return 0;
         }
 
